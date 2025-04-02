@@ -1,11 +1,11 @@
-export default function SearchLayout({
+export default function SearchbarLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
     <div>
-      <div>Search Layout</div>
+      <div>Searchbar Layout</div>
       {children}
     </div>
   )
