@@ -1,3 +1,5 @@
+import Searchbar from '@/components/Searchbar'
+
 export default function SearchbarLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,9 @@ export default function SearchbarLayout({
 }>) {
   return (
     <div>
-      <div>Searchbar Layout</div>
+      <div>
+        <Searchbar />
+      </div>
       {children}
     </div>
   )
