@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import './globals.css'
 
 export default function RootLayout({
@@ -7,9 +8,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`antialiased`}>
-        Global Layout
-        {children}
+      <body>
+        <header className="text-red-600 text-xl font-bold py-2">
+          <Link href="/">ONEBITE CINEMA</Link>
+        </header>
+        <main>{children}</main>
       </body>
     </html>
   )

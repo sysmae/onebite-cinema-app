@@ -20,25 +20,25 @@ export default function Searchbar() {
     }
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleSearch()
     }
   }
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex gap-2 my-5">
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
+        onKeyDown={onKeyDown}
         placeholder="검색어를 입력하세요"
-        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex-1 px-3 py-2 text-base text-white bg-transparent border border-gray-500 rounded"
       />
       <button
         onClick={handleSearch}
-        className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="px-4 py-2 text-white bg-gray-600 rounded hover:bg-red-600"
       >
         검색
       </button>
