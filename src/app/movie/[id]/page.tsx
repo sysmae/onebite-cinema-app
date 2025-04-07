@@ -1,6 +1,6 @@
 import React from 'react'
-import movies from '@/mock/movies.json'
 import { MovieData } from '@/types'
+import { NEXT_PUBLIC_API_SERVER_URL } from '@/constants'
 
 const MoviePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
@@ -12,10 +12,18 @@ const MoviePage = async ({ params }: { params: Promise<{ id: string }> }) => {
     )
   }
 
-  // 영화 데이터 검색
-  const movie: MovieData | undefined = movies.find(
-    (movie) => String(movie.id) === String(id)
-  )
+  const response = await fetch(`${NEXT_PUBLIC_API_SERVER_URL}/movie/${id}`, {
+    cache: 'force-cache',
+    next: {
+      revalidate: 60 * 60 * 24, // 1일 마다 갱신
+    },
+  })
+
+  if (!response.ok) {
+    return <div className="text-center text-gray-500">오류가 발생했습니다.</div>
+  }
+  const movie: MovieData = await response.json()
+
   if (!movie) {
     return (
       <div className="text-center text-gray-500">
