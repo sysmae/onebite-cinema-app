@@ -11,7 +11,8 @@ const SearchPage = async ({
   const { q } = await searchParams
 
   const response = await fetch(
-    `${NEXT_PUBLIC_API_SERVER_URL}/movie/search?q=${q}`
+    `${NEXT_PUBLIC_API_SERVER_URL}/movie/search?q=${q}`,
+    { cache: 'force-cache' }
   )
 
   if (!response.ok) {

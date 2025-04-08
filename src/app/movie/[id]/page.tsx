@@ -2,6 +2,24 @@ import React from 'react'
 import { MovieData } from '@/types'
 import { NEXT_PUBLIC_API_SERVER_URL } from '@/constants'
 
+// export const dynamicParams = 'false' // 페이지가 정적 생성되도록 설정
+
+export async function generateStaticParams() {
+  const response = await fetch(`${NEXT_PUBLIC_API_SERVER_URL}/movie`, {
+    cache: 'force-cache',
+  })
+
+  if (!response.ok) {
+    throw new Error('영화 데이터를 가져오는 데 실패했습니다.')
+  }
+
+  const movies: MovieData[] = await response.json()
+
+  return movies.map((movie) => ({
+    id: movie.id.toString(),
+  }))
+}
+
 const MoviePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
   if (!id) {

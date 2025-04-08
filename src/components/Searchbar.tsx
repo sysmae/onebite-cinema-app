@@ -10,7 +10,7 @@ export default function Searchbar() {
 
   // 쿼리 스트링에서 초기값 설정
   useEffect(() => {
-    const q = searchParams.get('q') || ''
+    const q = searchParams.get('q') ?? ''
     setQuery(q)
   }, [searchParams])
 
