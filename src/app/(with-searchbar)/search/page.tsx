@@ -2,6 +2,7 @@ import React from 'react'
 import { MovieData } from '@/types'
 import MovieItem from '@/components/MovieItem'
 import { NEXT_PUBLIC_API_SERVER_URL } from '@/constants'
+import { delay } from '@/utils/delay'
 
 const SearchPage = async ({
   searchParams,
@@ -9,7 +10,7 @@ const SearchPage = async ({
   searchParams: Promise<{ q: string }>
 }) => {
   const { q } = await searchParams
-
+  await delay(1000) // 1초 대기
   const response = await fetch(
     `${NEXT_PUBLIC_API_SERVER_URL}/movie/search?q=${q}`,
     { cache: 'force-cache' }
