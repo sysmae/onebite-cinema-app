@@ -1,8 +1,12 @@
 import MovieItem from '@/components/MovieItem'
 import { MovieData } from '@/types'
 import { NEXT_PUBLIC_API_SERVER_URL } from '@/constants'
+import { delay } from '@/utils/delay'
+import { Suspense } from 'react'
+import SkeletonList from '@/components/SkeletonList'
 
 async function AllMovies() {
+  await delay(1500)
   const response = await fetch(`${NEXT_PUBLIC_API_SERVER_URL}/movie`, {
     cache: 'force-cache',
     next: { revalidate: 60 * 5 }, // 5분마다 갱신
@@ -29,6 +33,7 @@ async function AllMovies() {
 }
 
 async function RecoMovies() {
+  await delay(3000)
   const response = await fetch(`${NEXT_PUBLIC_API_SERVER_URL}/movie/random`, {
     cache: 'force-cache',
     next: { revalidate: 60 * 60 * 24 }, // 1일 마다 갱신,
@@ -55,11 +60,21 @@ async function RecoMovies() {
   )
 }
 
+export const dynamic = 'force-dynamic' // 페이지가 동적 생성되도록 설정
+
 export default async function Home() {
   return (
     <>
-      <RecoMovies />
-      <AllMovies />
+      <Suspense
+        fallback={<SkeletonList count={3} cols={3} title="추천 영화" />}
+      >
+        <RecoMovies />
+      </Suspense>
+      <Suspense
+        fallback={<SkeletonList count={5} cols={5} title="등록된 모든 영화" />}
+      >
+        <AllMovies />
+      </Suspense>
     </>
   )
 }

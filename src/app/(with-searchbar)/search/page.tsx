@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { MovieData } from '@/types'
 import MovieItem from '@/components/MovieItem'
 import { NEXT_PUBLIC_API_SERVER_URL } from '@/constants'
 import { delay } from '@/utils/delay'
+import SkeletonList from '@/components/SkeletonList'
 
-const SearchPage = async ({
-  searchParams,
-}: {
-  searchParams: Promise<{ q: string }>
-}) => {
-  const { q } = await searchParams
+async function SearchResult({ q }: { q: string }) {
+  if (!q) {
+    return (
+      <div className="text-center text-gray-500">검색어를 입력해주세요.</div>
+    )
+  }
   await delay(1000) // 1초 대기
   const response = await fetch(
     `${NEXT_PUBLIC_API_SERVER_URL}/movie/search?q=${q}`,
@@ -38,6 +39,22 @@ const SearchPage = async ({
         <p className="text-gray-500">검색 결과가 없습니다.</p>
       )}
     </div>
+  )
+}
+
+const SearchPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ q: string }>
+}) => {
+  const { q } = await searchParams
+  return (
+    <Suspense
+      key={q || ''}
+      fallback={<SkeletonList count={3} cols={3} title="검색 결과" />}
+    >
+      <SearchResult q={q || ''} />
+    </Suspense>
   )
 }
 
