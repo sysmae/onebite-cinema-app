@@ -24,9 +24,7 @@ export async function generateStaticParams() {
 const MovieDetail = async ({ id }: { id: string }) => {
   const response = await fetch(`${NEXT_PUBLIC_API_SERVER_URL}/movie/${id}`, {
     cache: 'force-cache',
-    next: {
-      revalidate: 60 * 60 * 24, // 1일 마다 갱신
-    },
+    next: { tags: [`movie-${id}`] },
   })
 
   if (!response.ok) {
