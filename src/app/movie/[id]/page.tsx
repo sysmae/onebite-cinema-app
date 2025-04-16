@@ -4,6 +4,9 @@ import { NEXT_PUBLIC_API_SERVER_URL } from '@/constants'
 import ReviewEditor from '@/components/ReviewEditor'
 import ReviewList from '@/components/ReviewList'
 
+import { generateMetadata } from '@/utils/generateMetadata'
+export { generateMetadata }
+
 export async function generateStaticParams() {
   const response = await fetch(`${NEXT_PUBLIC_API_SERVER_URL}/movie`, {
     cache: 'force-cache',

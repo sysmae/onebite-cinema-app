@@ -4,6 +4,7 @@ import { NEXT_PUBLIC_API_SERVER_URL } from '@/constants'
 import { delay } from '@/utils/delay'
 import { Suspense } from 'react'
 import SkeletonList from '@/components/SkeletonList'
+import { Metadata } from 'next'
 
 async function AllMovies() {
   await delay(1500)
@@ -61,6 +62,35 @@ async function RecoMovies() {
 }
 
 export const dynamic = 'force-dynamic' // 페이지가 동적 생성되도록 설정
+
+export const metadata: Metadata = {
+  title: '한입 시네마 | 모든 영화와 추천 영화',
+  description:
+    '한입 시네마에서 추천 영화와 최신 영화 정보를 한눈에 확인하세요. 다양한 장르의 영화를 쉽고 빠르게 만나보세요.',
+  openGraph: {
+    title: '한입 시네마 | 모든 영화와 추천 영화',
+    description:
+      '한입 시네마에서 추천 영화와 최신 영화 정보를 한눈에 확인하세요. 다양한 장르의 영화를 쉽고 빠르게 만나보세요.',
+    url: '/',
+    siteName: '한입 시네마',
+    type: 'website',
+    images: [
+      {
+        url: '/thumbnail.png',
+        width: 1200,
+        height: 630,
+        alt: '한입 시네마 대표 이미지',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '한입 시네마 | 모든 영화와 추천 영화',
+    description:
+      '한입 시네마에서 추천 영화와 최신 영화 정보를 한눈에 확인하세요.',
+    images: ['/thumbnail.png'],
+  },
+}
 
 export default async function Home() {
   return (
