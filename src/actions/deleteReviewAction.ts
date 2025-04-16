@@ -2,7 +2,6 @@
 
 import { NEXT_PUBLIC_API_SERVER_URL } from '@/constants'
 import { revalidateTag } from 'next/cache'
-import { delay } from '@/utils/delay'
 
 export async function deleteReviewAction(_: any, formData: FormData) {
   const reviewId = formData.get('reviewId')?.toString() as string
@@ -16,8 +15,6 @@ export async function deleteReviewAction(_: any, formData: FormData) {
   }
 
   try {
-    // 1초간 지연
-    await delay(1000)
     const response = await fetch(
       `${NEXT_PUBLIC_API_SERVER_URL}/review/${reviewId}`,
       {

@@ -3,7 +3,6 @@
 
 import { NEXT_PUBLIC_API_SERVER_URL } from '@/constants'
 import { revalidatePath, revalidateTag } from 'next/cache'
-import { delay } from '@/utils/delay'
 
 export async function createReviewAction(_: any, formData: FormData) {
   const movieId = formData.get('movieId')?.toString() as string
@@ -23,8 +22,6 @@ export async function createReviewAction(_: any, formData: FormData) {
     author,
   }
   try {
-    // 1초간 지연
-    await delay(1000)
     const response = await fetch(`${NEXT_PUBLIC_API_SERVER_URL}/review`, {
       method: 'POST',
       headers: {

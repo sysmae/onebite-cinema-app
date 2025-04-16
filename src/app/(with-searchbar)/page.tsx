@@ -1,13 +1,11 @@
 import MovieItem from '@/components/MovieItem'
 import { MovieData } from '@/types'
 import { NEXT_PUBLIC_API_SERVER_URL } from '@/constants'
-import { delay } from '@/utils/delay'
 import { Suspense } from 'react'
 import SkeletonList from '@/components/SkeletonList'
 import { Metadata } from 'next'
 
 async function AllMovies() {
-  await delay(1500)
   const response = await fetch(`${NEXT_PUBLIC_API_SERVER_URL}/movie`, {
     cache: 'force-cache',
     next: { revalidate: 60 * 5 }, // 5분마다 갱신
@@ -34,7 +32,6 @@ async function AllMovies() {
 }
 
 async function RecoMovies() {
-  await delay(3000)
   const response = await fetch(`${NEXT_PUBLIC_API_SERVER_URL}/movie/random`, {
     cache: 'force-cache',
     next: { revalidate: 60 * 60 * 24 }, // 1일 마다 갱신,

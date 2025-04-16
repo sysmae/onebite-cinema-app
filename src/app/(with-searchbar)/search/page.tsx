@@ -2,7 +2,6 @@ import React, { Suspense } from 'react'
 import { MovieData } from '@/types'
 import MovieItem from '@/components/MovieItem'
 import { NEXT_PUBLIC_API_SERVER_URL } from '@/constants'
-import { delay } from '@/utils/delay'
 import SkeletonList from '@/components/SkeletonList'
 import type { Metadata } from 'next'
 
@@ -52,7 +51,6 @@ async function SearchResult({ q }: { q: string }) {
       <div className="text-center text-gray-500">검색어를 입력해주세요.</div>
     )
   }
-  await delay(1000) // 1초 대기
   const response = await fetch(
     `${NEXT_PUBLIC_API_SERVER_URL}/movie/search?q=${q}`,
     { cache: 'force-cache' }
